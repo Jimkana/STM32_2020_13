@@ -1,0 +1,10 @@
+ligne 1 
+ligne 2 MAZARGUIL
+<<<<<<< HEAD
+ligne 3 MAZA2
+ligne 4 Qin
+=======
+ligne 3
+ligne 4 QIN Xiaotong
+>>>>>>> 48b4f4b886db7c6356fa0a8d0b620c8ae4601601
+ligne 5
