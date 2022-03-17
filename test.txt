@@ -2,10 +2,4 @@ ligne 1 toto
 ligne 2
 ligne 3coco
 ligne 4
-<<<<<<< HEAD
 ligne 5
-=======
-
-
-ligne 5 :Bonjour
->>>>>>> 1fc39c4e5f5e8220da73d00359402171d3bf0b21
