@@ -1,6 +1,6 @@
 ligne 1 toto
 ligne 2
-ligne 3
+ligne 3coco
 ligne 4
 <<<<<<< HEAD
 ligne 5
