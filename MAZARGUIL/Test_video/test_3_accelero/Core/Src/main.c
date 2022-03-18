@@ -21,7 +21,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "iks01a2_env_sensors.h"
+#include "iks01a2_env_sensors_ex.h"
 
+#include "iks01a2_motion_sensors.h"
+#include "iks01a2_motion_sensors_ex.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,7 +46,8 @@
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+float data;
+IKS01A2_MOTION_SENSOR_Axes_t data_axe;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,13 +93,27 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  if(IKS01A2_MOTION_SENSOR_Init(IKS01A2_LSM6DSL_0,MOTION_GYRO)==HAL_OK){
+	  IKS01A2_MOTION_SENSOR_Enable(IKS01A2_LSM6DSL_0,MOTION_GYRO);
+  }
 
+  if(IKS01A2_MOTION_SENSOR_Init(IKS01A2_LSM6DSL_0,MOTION_ACCELERO)==HAL_OK){
+	  IKS01A2_MOTION_SENSOR_Enable(IKS01A2_LSM6DSL_0,MOTION_ACCELERO);
+  }
+
+  if(IKS01A2_ENV_SENSOR_Init(IKS01A2_HTS221_0,ENV_TEMPERATURE)==HAL_OK){
+	  IKS01A2_ENV_SENSOR_Enable(IKS01A2_HTS221_0,ENV_TEMPERATURE);
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data);
+	  HAL_Delay(100);
+	  IKS01A2_MOTION_SENSOR_GetAxesRaw(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data_axe);
+	  HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
