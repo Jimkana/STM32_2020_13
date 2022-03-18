@@ -21,29 +21,29 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   8 .data         00000164  20000000  080092dc  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000025c  20000164  08009440  00020164  2**2
+  9 .bss          00000260  20000164  08009440  00020164  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  200003c0  08009440  000203c0  2**0
+ 10 ._user_heap_stack 00000604  200003c4  08009440  000203c4  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020164  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00033004  00000000  00000000  00020194  2**0
+ 12 .debug_info   00033016  00000000  00000000  00020194  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00003bd4  00000000  00000000  00053198  2**0
+ 13 .debug_abbrev 00003bd4  00000000  00000000  000531aa  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00002458  00000000  00000000  00056d70  2**3
+ 14 .debug_aranges 00002458  00000000  00000000  00056d80  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00002300  00000000  00000000  000591c8  2**3
+ 15 .debug_ranges 00002300  00000000  00000000  000591d8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000282db  00000000  00000000  0005b4c8  2**0
+ 16 .debug_macro  000282db  00000000  00000000  0005b4d8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001bb3f  00000000  00000000  000837a3  2**0
+ 17 .debug_line   0001bb3f  00000000  00000000  000837b3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000f76b8  00000000  00000000  0009f2e2  2**0
+ 18 .debug_str    000f76c2  00000000  00000000  0009f2f2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  0019699a  2**0
+ 19 .comment      00000053  00000000  00000000  001969b4  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00009c4c  00000000  00000000  001969f0  2**2
+ 20 .debug_frame  00009c4c  00000000  00000000  00196a08  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -434,18 +434,18 @@ int main(void)
 	  HAL_Delay(100);
  8000520:	2064      	movs	r0, #100	; 0x64
  8000522:	f005 fccb 	bl	8005ebc <HAL_Delay>
-	  IKS01A2_MOTION_SENSOR_GetAxesRaw(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data_axe);
+	  IKS01A2_MOTION_SENSOR_GetAxes(1,MOTION_ACCELERO, &data_axe);
  8000526:	4a05      	ldr	r2, [pc, #20]	; (800053c <main+0x7c>)
- 8000528:	2101      	movs	r1, #1
- 800052a:	2000      	movs	r0, #0
- 800052c:	f005 fa0a 	bl	8005944 <IKS01A2_MOTION_SENSOR_GetAxesRaw>
+ 8000528:	2102      	movs	r1, #2
+ 800052a:	2001      	movs	r0, #1
+ 800052c:	f005 fa0a 	bl	8005944 <IKS01A2_MOTION_SENSOR_GetAxes>
 	  HAL_Delay(100);
  8000530:	2064      	movs	r0, #100	; 0x64
  8000532:	f005 fcc3 	bl	8005ebc <HAL_Delay>
 	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data);
  8000536:	e7ee      	b.n	8000516 <main+0x56>
  8000538:	200002c8 	.word	0x200002c8
- 800053c:	200002cc 	.word	0x200002cc
+ 800053c:	200002d0 	.word	0x200002d0
 
 08000540 <SystemClock_Config>:
 /**
@@ -638,7 +638,7 @@ static void MX_USART2_UART_Init(void)
  8000636:	bf00      	nop
  8000638:	bd80      	pop	{r7, pc}
  800063a:	bf00      	nop
- 800063c:	200002d8 	.word	0x200002d8
+ 800063c:	200002dc 	.word	0x200002dc
  8000640:	40004400 	.word	0x40004400
 
 08000644 <MX_GPIO_Init>:
@@ -1186,7 +1186,7 @@ int32_t BSP_I2C1_Init(void)
  80008c2:	46bd      	mov	sp, r7
  80008c4:	bd80      	pop	{r7, pc}
  80008c6:	bf00      	nop
- 80008c8:	2000035c 	.word	0x2000035c
+ 80008c8:	20000360 	.word	0x20000360
  80008cc:	40005400 	.word	0x40005400
  80008d0:	20000180 	.word	0x20000180
 
@@ -1250,7 +1250,7 @@ int32_t BSP_I2C1_DeInit(void)
  8000918:	bd80      	pop	{r7, pc}
  800091a:	bf00      	nop
  800091c:	20000180 	.word	0x20000180
- 8000920:	2000035c 	.word	0x2000035c
+ 8000920:	20000360 	.word	0x20000360
 
 08000924 <BSP_I2C1_WriteReg>:
   * @param  Length Data Length
@@ -1317,7 +1317,7 @@ int32_t BSP_I2C1_WriteReg(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint16
  800097e:	46bd      	mov	sp, r7
  8000980:	bd80      	pop	{r7, pc}
  8000982:	bf00      	nop
- 8000984:	2000035c 	.word	0x2000035c
+ 8000984:	20000360 	.word	0x20000360
 
 08000988 <BSP_I2C1_ReadReg>:
   * @param  pData  Pointer to data buffer to read
@@ -1384,7 +1384,7 @@ int32_t  BSP_I2C1_ReadReg(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint16
  80009e2:	46bd      	mov	sp, r7
  80009e4:	bd80      	pop	{r7, pc}
  80009e6:	bf00      	nop
- 80009e8:	2000035c 	.word	0x2000035c
+ 80009e8:	20000360 	.word	0x20000360
 
 080009ec <BSP_GetTick>:
 
@@ -1761,7 +1761,7 @@ LoopForever:
   ldr r2, =_sbss
  8000bb4:	20000164 	.word	0x20000164
   ldr r4, =_ebss
- 8000bb8:	200003c0 	.word	0x200003c0
+ 8000bb8:	200003c4 	.word	0x200003c4
 
 08000bbc <ADC1_2_IRQHandler>:
  * @retval : None
@@ -14005,7 +14005,7 @@ int32_t IKS01A2_ENV_SENSOR_Init(uint32_t Instance, uint32_t Functions)
  80052bc:	46bd      	mov	sp, r7
  80052be:	bd80      	pop	{r7, pc}
  80052c0:	2000019c 	.word	0x2000019c
- 80052c4:	200003a8 	.word	0x200003a8
+ 80052c4:	200003ac 	.word	0x200003ac
  80052c8:	20000134 	.word	0x20000134
  80052cc:	20000184 	.word	0x20000184
 
@@ -14097,7 +14097,7 @@ int32_t IKS01A2_ENV_SENSOR_Enable(uint32_t Instance, uint32_t Function)
  8005344:	200001a4 	.word	0x200001a4
  8005348:	20000134 	.word	0x20000134
  800534c:	20000184 	.word	0x20000184
- 8005350:	200003a8 	.word	0x200003a8
+ 8005350:	200003ac 	.word	0x200003ac
 
 08005354 <IKS01A2_ENV_SENSOR_GetValue>:
  *         - ENV_TEMPERATURE or ENV_PRESSURE for instance 1
@@ -14189,7 +14189,7 @@ int32_t IKS01A2_ENV_SENSOR_GetValue(uint32_t Instance, uint32_t Function, float 
  80053cc:	200001a4 	.word	0x200001a4
  80053d0:	20000134 	.word	0x20000134
  80053d4:	20000184 	.word	0x20000184
- 80053d8:	200003a8 	.word	0x200003a8
+ 80053d8:	200003ac 	.word	0x200003ac
 
 080053dc <HTS221_0_Probe>:
  * @param  Functions Environmental sensor functions. Could be :
@@ -14420,7 +14420,7 @@ static int32_t HTS221_0_Probe(uint32_t Functions)
  8005528:	080009ed 	.word	0x080009ed
  800552c:	200001ac 	.word	0x200001ac
  8005530:	200001a4 	.word	0x200001a4
- 8005534:	200003a8 	.word	0x200003a8
+ 8005534:	200003ac 	.word	0x200003ac
  8005538:	2000019c 	.word	0x2000019c
  800553c:	20000004 	.word	0x20000004
  8005540:	20000134 	.word	0x20000134
@@ -14659,7 +14659,7 @@ static int32_t LPS22HB_0_Probe(uint32_t Functions)
  80056a0:	080009ed 	.word	0x080009ed
  80056a4:	200001d8 	.word	0x200001d8
  80056a8:	200001a4 	.word	0x200001a4
- 80056ac:	200003a8 	.word	0x200003a8
+ 80056ac:	200003ac 	.word	0x200003ac
  80056b0:	2000019c 	.word	0x2000019c
  80056b4:	2000003c 	.word	0x2000003c
  80056b8:	20000134 	.word	0x20000134
@@ -14999,7 +14999,7 @@ int32_t IKS01A2_MOTION_SENSOR_Init(uint32_t Instance, uint32_t Functions)
  80058ac:	bd80      	pop	{r7, pc}
  80058ae:	bf00      	nop
  80058b0:	20000228 	.word	0x20000228
- 80058b4:	200003b0 	.word	0x200003b0
+ 80058b4:	200003b4 	.word	0x200003b4
  80058b8:	20000148 	.word	0x20000148
  80058bc:	20000204 	.word	0x20000204
 
@@ -15091,14 +15091,14 @@ int32_t IKS01A2_MOTION_SENSOR_Enable(uint32_t Instance, uint32_t Function)
  8005934:	20000234 	.word	0x20000234
  8005938:	20000148 	.word	0x20000148
  800593c:	20000204 	.word	0x20000204
- 8005940:	200003b0 	.word	0x200003b0
+ 8005940:	200003b4 	.word	0x200003b4
 
-08005944 <IKS01A2_MOTION_SENSOR_GetAxesRaw>:
+08005944 <IKS01A2_MOTION_SENSOR_GetAxes>:
  *         - MOTION_MAGNETO for instance 2
- * @param  Axes pointer to axes raw data structure
+ * @param  Axes pointer to axes data structure
  * @retval BSP status
  */
-int32_t IKS01A2_MOTION_SENSOR_GetAxesRaw(uint32_t Instance, uint32_t Function, IKS01A2_MOTION_SENSOR_AxesRaw_t *Axes)
+int32_t IKS01A2_MOTION_SENSOR_GetAxes(uint32_t Instance, uint32_t Function, IKS01A2_MOTION_SENSOR_Axes_t *Axes)
 {
  8005944:	b580      	push	{r7, lr}
  8005946:	b086      	sub	sp, #24
@@ -15111,38 +15111,38 @@ int32_t IKS01A2_MOTION_SENSOR_GetAxesRaw(uint32_t Instance, uint32_t Function, I
   if (Instance >= IKS01A2_MOTION_INSTANCES_NBR)
  8005950:	68fb      	ldr	r3, [r7, #12]
  8005952:	2b02      	cmp	r3, #2
- 8005954:	d903      	bls.n	800595e <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x1a>
+ 8005954:	d903      	bls.n	800595e <IKS01A2_MOTION_SENSOR_GetAxes+0x1a>
   {
     ret = BSP_ERROR_WRONG_PARAM;
  8005956:	f06f 0301 	mvn.w	r3, #1
  800595a:	617b      	str	r3, [r7, #20]
- 800595c:	e029      	b.n	80059b2 <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x6e>
+ 800595c:	e029      	b.n	80059b2 <IKS01A2_MOTION_SENSOR_GetAxes+0x6e>
   }
   else
   {
     if ((MotionCtx[Instance].Functions & Function) == Function)
- 800595e:	4a17      	ldr	r2, [pc, #92]	; (80059bc <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x78>)
+ 800595e:	4a17      	ldr	r2, [pc, #92]	; (80059bc <IKS01A2_MOTION_SENSOR_GetAxes+0x78>)
  8005960:	68fb      	ldr	r3, [r7, #12]
  8005962:	f852 2023 	ldr.w	r2, [r2, r3, lsl #2]
  8005966:	68bb      	ldr	r3, [r7, #8]
  8005968:	4013      	ands	r3, r2
  800596a:	68ba      	ldr	r2, [r7, #8]
  800596c:	429a      	cmp	r2, r3
- 800596e:	d11d      	bne.n	80059ac <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x68>
+ 800596e:	d11d      	bne.n	80059ac <IKS01A2_MOTION_SENSOR_GetAxes+0x68>
     {
-      if (MotionFuncDrv[Instance][FunctionIndex[Function]]->GetAxesRaw(MotionCompObj[Instance], Axes) != BSP_ERROR_NONE)
- 8005970:	4a13      	ldr	r2, [pc, #76]	; (80059c0 <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x7c>)
+      if (MotionFuncDrv[Instance][FunctionIndex[Function]]->GetAxes(MotionCompObj[Instance], Axes) != BSP_ERROR_NONE)
+ 8005970:	4a13      	ldr	r2, [pc, #76]	; (80059c0 <IKS01A2_MOTION_SENSOR_GetAxes+0x7c>)
  8005972:	68bb      	ldr	r3, [r7, #8]
  8005974:	f852 1023 	ldr.w	r1, [r2, r3, lsl #2]
- 8005978:	4812      	ldr	r0, [pc, #72]	; (80059c4 <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x80>)
+ 8005978:	4812      	ldr	r0, [pc, #72]	; (80059c4 <IKS01A2_MOTION_SENSOR_GetAxes+0x80>)
  800597a:	68fa      	ldr	r2, [r7, #12]
  800597c:	4613      	mov	r3, r2
  800597e:	005b      	lsls	r3, r3, #1
  8005980:	4413      	add	r3, r2
  8005982:	440b      	add	r3, r1
  8005984:	f850 3023 	ldr.w	r3, [r0, r3, lsl #2]
- 8005988:	6a1b      	ldr	r3, [r3, #32]
- 800598a:	490f      	ldr	r1, [pc, #60]	; (80059c8 <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x84>)
+ 8005988:	69db      	ldr	r3, [r3, #28]
+ 800598a:	490f      	ldr	r1, [pc, #60]	; (80059c8 <IKS01A2_MOTION_SENSOR_GetAxes+0x84>)
  800598c:	68fa      	ldr	r2, [r7, #12]
  800598e:	f851 2022 	ldr.w	r2, [r1, r2, lsl #2]
  8005992:	6879      	ldr	r1, [r7, #4]
@@ -15150,19 +15150,19 @@ int32_t IKS01A2_MOTION_SENSOR_GetAxesRaw(uint32_t Instance, uint32_t Function, I
  8005996:	4798      	blx	r3
  8005998:	4603      	mov	r3, r0
  800599a:	2b00      	cmp	r3, #0
- 800599c:	d003      	beq.n	80059a6 <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x62>
+ 800599c:	d003      	beq.n	80059a6 <IKS01A2_MOTION_SENSOR_GetAxes+0x62>
       {
         ret = BSP_ERROR_COMPONENT_FAILURE;
  800599e:	f06f 0304 	mvn.w	r3, #4
  80059a2:	617b      	str	r3, [r7, #20]
- 80059a4:	e005      	b.n	80059b2 <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x6e>
+ 80059a4:	e005      	b.n	80059b2 <IKS01A2_MOTION_SENSOR_GetAxes+0x6e>
       }
       else
       {
         ret = BSP_ERROR_NONE;
  80059a6:	2300      	movs	r3, #0
  80059a8:	617b      	str	r3, [r7, #20]
- 80059aa:	e002      	b.n	80059b2 <IKS01A2_MOTION_SENSOR_GetAxesRaw+0x6e>
+ 80059aa:	e002      	b.n	80059b2 <IKS01A2_MOTION_SENSOR_GetAxes+0x6e>
       }
     }
     else
@@ -15183,7 +15183,7 @@ int32_t IKS01A2_MOTION_SENSOR_GetAxesRaw(uint32_t Instance, uint32_t Function, I
  80059bc:	20000234 	.word	0x20000234
  80059c0:	20000148 	.word	0x20000148
  80059c4:	20000204 	.word	0x20000204
- 80059c8:	200003b0 	.word	0x200003b0
+ 80059c8:	200003b4 	.word	0x200003b4
 
 080059cc <LSM6DSL_0_Probe>:
 /**
@@ -15413,7 +15413,7 @@ static int32_t LSM6DSL_0_Probe(uint32_t Functions)
  8005b1c:	080009ed 	.word	0x080009ed
  8005b20:	20000240 	.word	0x20000240
  8005b24:	20000234 	.word	0x20000234
- 8005b28:	200003b0 	.word	0x200003b0
+ 8005b28:	200003b4 	.word	0x200003b4
  8005b2c:	20000228 	.word	0x20000228
  8005b30:	200000dc 	.word	0x200000dc
  8005b34:	20000148 	.word	0x20000148
@@ -15622,7 +15622,7 @@ static int32_t LSM303AGR_ACC_0_Probe(uint32_t Functions)
  8005c68:	080009ed 	.word	0x080009ed
  8005c6c:	20000270 	.word	0x20000270
  8005c70:	20000234 	.word	0x20000234
- 8005c74:	200003b0 	.word	0x200003b0
+ 8005c74:	200003b4 	.word	0x200003b4
  8005c78:	20000228 	.word	0x20000228
  8005c7c:	20000074 	.word	0x20000074
  8005c80:	20000148 	.word	0x20000148
@@ -15830,7 +15830,7 @@ static int32_t LSM303AGR_MAG_0_Probe(uint32_t Functions)
  8005db0:	080009ed 	.word	0x080009ed
  8005db4:	2000029c 	.word	0x2000029c
  8005db8:	20000234 	.word	0x20000234
- 8005dbc:	200003b0 	.word	0x200003b0
+ 8005dbc:	200003b4 	.word	0x200003b4
  8005dc0:	20000228 	.word	0x20000228
  8005dc4:	200000a8 	.word	0x200000a8
  8005dc8:	20000148 	.word	0x20000148
@@ -16004,7 +16004,7 @@ __weak void HAL_IncTick(void)
  8005e98:	4770      	bx	lr
  8005e9a:	bf00      	nop
  8005e9c:	20000160 	.word	0x20000160
- 8005ea0:	200003bc 	.word	0x200003bc
+ 8005ea0:	200003c0 	.word	0x200003c0
 
 08005ea4 <HAL_GetTick>:
   * @note This function is declared as __weak to be overwritten in case of other
@@ -16024,7 +16024,7 @@ __weak uint32_t HAL_GetTick(void)
  8005eb0:	f85d 7b04 	ldr.w	r7, [sp], #4
  8005eb4:	4770      	bx	lr
  8005eb6:	bf00      	nop
- 8005eb8:	200003bc 	.word	0x200003bc
+ 8005eb8:	200003c0 	.word	0x200003c0
 
 08005ebc <HAL_Delay>:
   *       implementations in user file.
