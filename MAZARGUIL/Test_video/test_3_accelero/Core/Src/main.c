@@ -48,6 +48,7 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 float data;
+float data_humidity;
 IKS01A2_MOTION_SENSOR_Axes_t data_axe_acc;
 IKS01A2_MOTION_SENSOR_Axes_t data_axe_gyro;
 float data_gyro;
@@ -109,6 +110,9 @@ int main(void)
   if(IKS01A2_ENV_SENSOR_Init(IKS01A2_HTS221_0,ENV_TEMPERATURE)==HAL_OK){
 	  IKS01A2_ENV_SENSOR_Enable(IKS01A2_HTS221_0,ENV_TEMPERATURE);
   }
+  if(IKS01A2_ENV_SENSOR_Init(IKS01A2_HTS221_0,ENV_HUMIDITY)==HAL_OK){
+	  IKS01A2_ENV_SENSOR_Enable(IKS01A2_HTS221_0,ENV_HUMIDITY);
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -117,11 +121,13 @@ int main(void)
   {
 	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data);
 	  HAL_Delay(100);
+	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_HUMIDITY, &data_humidity);
+	  HAL_Delay(100);
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM303AGR_ACC_0,MOTION_ACCELERO, &data_axe_acc);
 	  HAL_Delay(100);
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM6DSL_0,MOTION_GYRO, &data_axe_gyro);
 	  HAL_Delay(100);
-
+	  //printf("%fl",data);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
