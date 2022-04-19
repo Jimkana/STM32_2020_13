@@ -26,6 +26,8 @@
 
 #include "iks01a2_motion_sensors.h"
 #include "iks01a2_motion_sensors_ex.h"
+
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -75,7 +77,7 @@ static void MX_UART4_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	uint8_t buf[12];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -119,6 +121,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  HAL_Delay(500);
+
 	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data);
 	  HAL_Delay(100);
 	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_HUMIDITY, &data_humidity);
@@ -126,6 +131,10 @@ int main(void)
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM303AGR_ACC_0,MOTION_ACCELERO, &data_axe_acc);
 	  HAL_Delay(100);
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM6DSL_0,MOTION_GYRO, &data_axe_gyro);
+		// buf[1]=&data_axe_acc;
+		  sprintf((char*)buf,"hello %u\r\n",(unsigned int)data);
+		 // strcpy((char*)buf,"Hello! \r\n");
+		  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
 	  HAL_Delay(100);
 	  //printf("%fl",data);
     /* USER CODE END WHILE */
