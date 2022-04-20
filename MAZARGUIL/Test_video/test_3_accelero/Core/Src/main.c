@@ -154,7 +154,7 @@ int main(void)
 
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM6DSL_0,MOTION_GYRO, &data_axe_gyro);
 	  val = data_axe_gyro.x ;
-	 // val |= 0xF000;
+	  val |= 0xF000;
 	  sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)val);
 
 	  //sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)data_axe_gyro.x);
