@@ -54,6 +54,7 @@ float data_humidity;
 IKS01A2_MOTION_SENSOR_Axes_t data_axe_acc;
 IKS01A2_MOTION_SENSOR_Axes_t data_axe_gyro;
 float data_gyro;
+int32_t val;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -77,7 +78,7 @@ static void MX_UART4_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t buf[12];
+	uint8_t buf[30];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -119,24 +120,64 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+
   while (1)
   {
 
-	  HAL_Delay(500);
+
 
 	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data);
+	  sprintf((char*)buf,"Température : %u\r\n",(unsigned int)data);
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
 	  HAL_Delay(100);
+
+
 	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_HUMIDITY, &data_humidity);
+	  sprintf((char*)buf,"Humidité : %u\r\n",(unsigned int)data_humidity);
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
 	  HAL_Delay(100);
+
+
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM303AGR_ACC_0,MOTION_ACCELERO, &data_axe_acc);
+	  sprintf((char*)buf,"Accelero : \t x : %u\r\n ",(unsigned int)data_axe_acc.x);
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+
+	  sprintf((char*)buf," \t\t y : %u \r\n",(unsigned int)data_axe_acc.y);
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+
+	  sprintf((char*)buf,"\t\t z : %u \r\n",(unsigned int)data_axe_acc.z);
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
 	  HAL_Delay(100);
+
+
+
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM6DSL_0,MOTION_GYRO, &data_axe_gyro);
-		// buf[1]=&data_axe_acc;
-		  sprintf((char*)buf,"hello %u\r\n",(unsigned int)data);
-		 // strcpy((char*)buf,"Hello! \r\n");
-		  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+	  val = data_axe_gyro.x ;
+	 // val |= 0xF000;
+	  sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)val);
+
+	  //sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)data_axe_gyro.x);
+
+
+	//  sprintf((char*)buf,"gyro \t x :-  %u\r\n",(unsigned int)data_axe_gyro.x);
+
+//	  val = ((int16_t)buf[0] << 4) | (buf[1] >> 4);
+//	  if (val > 0x7FF){
+//		  val |=0xF000;
+//	  }
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+
+	  sprintf((char*)buf," \t y : %u\r\n",(unsigned int)data_axe_gyro.y);
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+
+	  sprintf((char*)buf," \t z : %u\r\n\n",(unsigned int)data_axe_gyro.z);
+	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
 	  HAL_Delay(100);
-	  //printf("%fl",data);
+
+
+	  HAL_Delay(1000);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
