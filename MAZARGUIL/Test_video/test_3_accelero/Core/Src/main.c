@@ -166,6 +166,7 @@ int main(void)
 //	  if (val > 0x7FF){
 //		  val |=0xF000;
 //	  }
+
 	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
 
 	  sprintf((char*)buf," \t y : %u\r\n",(unsigned int)data_axe_gyro.y);
