@@ -153,20 +153,8 @@ int main(void)
 
 
 	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM6DSL_0,MOTION_GYRO, &data_axe_gyro);
-	  val = data_axe_gyro.x ;
-	  val |= 0xF000;
+	  val = 0xFFFFFFFF - data_axe_gyro.x + 1; //Complement à 2
 	  sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)val);
-
-	  //sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)data_axe_gyro.x);
-
-
-	//  sprintf((char*)buf,"gyro \t x :-  %u\r\n",(unsigned int)data_axe_gyro.x);
-
-//	  val = ((int16_t)buf[0] << 4) | (buf[1] >> 4);
-//	  if (val > 0x7FF){
-//		  val |=0xF000;
-//	  }
-
 	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
 
 	  sprintf((char*)buf," \t y : %u\r\n",(unsigned int)data_axe_gyro.y);
