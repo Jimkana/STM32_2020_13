@@ -127,56 +127,85 @@ int main(void)
 
 
 
-	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data);
-	  sprintf((char*)buf,"Température : %u\r\n",(unsigned int)data);
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-	  HAL_Delay(100);
+      IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_TEMPERATURE, &data);
+            sprintf((char*)buf,"Température : %u\r\n",(unsigned int)data);
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+            HAL_Delay(100);
 
 
-	  IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_HUMIDITY, &data_humidity);
-	  sprintf((char*)buf,"Humidité : %u\r\n",(unsigned int)data_humidity);
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-	  HAL_Delay(100);
+            IKS01A2_ENV_SENSOR_GetValue(IKS01A2_HTS221_0,ENV_HUMIDITY, &data_humidity);
+            sprintf((char*)buf,"Humidité : %u\r\n",(unsigned int)data_humidity);
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+            HAL_Delay(100);
 
 
-	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM303AGR_ACC_0,MOTION_ACCELERO, &data_axe_acc);
-	  sprintf((char*)buf,"Accelero : \t x : %u\r\n ",(unsigned int)data_axe_acc.x);
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-
-	  sprintf((char*)buf," \t\t y : %u \r\n",(unsigned int)data_axe_acc.y);
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-
-	  sprintf((char*)buf,"\t\t z : %u \r\n",(unsigned int)data_axe_acc.z);
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-	  HAL_Delay(100);
-
-
-
-	  IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM6DSL_0,MOTION_GYRO, &data_axe_gyro);
-	  val = data_axe_gyro.x ;
-	  val |= 0xF000;
-	  sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)val);
-
-	  //sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)data_axe_gyro.x);
-
-
-	//  sprintf((char*)buf,"gyro \t x :-  %u\r\n",(unsigned int)data_axe_gyro.x);
-
-//	  val = ((int16_t)buf[0] << 4) | (buf[1] >> 4);
-//	  if (val > 0x7FF){
-//		  val |=0xF000;
-//	  }
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-
-	  sprintf((char*)buf," \t y : %u\r\n",(unsigned int)data_axe_gyro.y);
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-
-	  sprintf((char*)buf," \t z : %u\r\n\n",(unsigned int)data_axe_gyro.z);
-	  HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
-	  HAL_Delay(100);
+            IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM303AGR_ACC_0,MOTION_ACCELERO, &data_axe_acc);
+            if(data_axe_acc.x>0x80000000)
+            {
+                data_axe_acc.x=0xffffffff-data_axe_acc.x+1;
+                sprintf((char*)buf,"Accelero : \t x : -%u\r\n ",(unsigned int)data_axe_acc.x);
+            }else
+            {
+            sprintf((char*)buf,"Accelero : \t x : %u\r\n ",(unsigned int)data_axe_acc.x);
+            }
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+            if(data_axe_acc.y>0x80000000)
+                  {
+                      data_axe_acc.y=0xffffffff-data_axe_acc.y+1;
+                      sprintf((char*)buf,"Accelero : \t y : -%u\r\n ",(unsigned int)data_axe_acc.y);
+                  }else
+                  {
+                  sprintf((char*)buf,"Accelero : \t y : %u\r\n ",(unsigned int)data_axe_acc.y);
+                  }
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+            if(data_axe_acc.z>0x80000000)
+                  {
+                      data_axe_acc.z=0xffffffff-data_axe_acc.z+1;
+                      sprintf((char*)buf,"Accelero : \t z : -%u\r\n ",(unsigned int)data_axe_acc.z);
+                  }else
+                  {
+                  sprintf((char*)buf,"Accelero : \t z : %u\r\n ",(unsigned int)data_axe_acc.z);
+                  }
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+            HAL_Delay(100);
 
 
-	  HAL_Delay(1000);
+
+            IKS01A2_MOTION_SENSOR_GetAxes(IKS01A2_LSM6DSL_0,MOTION_GYRO, &data_axe_gyro);
+           // sprintf((char*)buf,"gyro \t x : %u\r\n",(unsigned int)val);
+            if(data_axe_gyro.x>0x80000000)
+                  {
+                      data_axe_gyro.x=0xffffffff-data_axe_gyro.x+1;
+                      sprintf((char*)buf,"gyro : \t x : -%u\r\n ",(unsigned int)data_axe_gyro.x);
+                  }else
+                  {
+                  sprintf((char*)buf,"gyro : \t x : %u\r\n ",(unsigned int)data_axe_gyro.x);
+                  }
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+
+            if(data_axe_gyro.y>0x80000000)
+                  {
+                      data_axe_gyro.y=0xffffffff-data_axe_gyro.y+1;
+                      sprintf((char*)buf,"gyro : \t y: -%u\r\n ",(unsigned int)data_axe_gyro.y);
+                  }else
+                  {
+                     sprintf((char*)buf,"gyro : \t y : %u\r\n",(unsigned int)data_axe_gyro.y);
+                  }
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+
+            if(data_axe_gyro.z>0x80000000)
+                  {
+                      data_axe_gyro.z=0xffffffff-data_axe_gyro.z+1;
+                      sprintf((char*)buf,"gyro : \t z: -%u\r\n ",(unsigned int)data_axe_gyro.z);
+                  }else
+                  {
+                     sprintf((char*)buf,"gyro : \t z : %u\r\n",(unsigned int)data_axe_gyro.z);
+                  }
+            HAL_UART_Transmit(&huart2,buf,strlen((char*)buf),HAL_MAX_DELAY);
+            HAL_Delay(100);
+
+
+            HAL_Delay(1000);
 
     /* USER CODE END WHILE */
 
